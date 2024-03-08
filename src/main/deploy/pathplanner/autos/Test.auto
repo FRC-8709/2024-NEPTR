@@ -1,24 +1,25 @@
 {
-    "version": 1.0,
-    "startingPose": {
-      "position": {
-        "x": 4.061722123444247,
-        "y": 5.038789506150441
-      },
-      "rotation": 0
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 2.0,
+      "y": 7.0
     },
-    "command": {
-      "type": "sequential",
-      "data": {
-        "commands": [
-          {
-            "type": "path",
-            "data": {
-              "pathName": "SimplePath"
-            }
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path"
           }
-        ]
-      }
-    },
-    "folder": null
-  }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

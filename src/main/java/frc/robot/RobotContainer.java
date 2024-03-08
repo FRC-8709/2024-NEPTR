@@ -32,6 +32,8 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeAngle;
 import frc.robot.subsystems.IntakeUppies;
 import frc.robot.subsystems.Launcher;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -42,6 +44,7 @@ public class RobotContainer {
   private final Joystick leftJoystick = new Joystick(0); // My joystick
   private final Joystick rightJoystick = new Joystick(1);
   private final Joystick soloJoystick = new Joystick(2);
+  private final Joystick soloJoystick2ElectricBoogaloo = new Joystick(3);
   
 
   private final JoystickButton a = new JoystickButton(leftJoystick, 3);
@@ -63,9 +66,9 @@ public class RobotContainer {
   
   private final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper));
   private final AngleSubsystem s_Angle = new AngleSubsystem(new TalonFX(Constants.AngleConstants.LeftAngle), new TalonFX(Constants.AngleConstants.RightAngle),8);
-  // private final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9);
-  // private final IntakeAngle s_IntakeAngle = new IntakeAngle(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle));
-  // private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 7);
+  private final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9);
+  private final IntakeAngle s_IntakeAngle = new IntakeAngle(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle));
+  private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 7);
   private Command runAuto = drivetrain.getAutoPath("Test");
 
   public RobotContainer() {
@@ -75,23 +78,21 @@ public class RobotContainer {
       new TeleopLauncher(s_Launcher, soloJoystick)
     );
     
-    // s_IntakeUppies.setDefaultCommand(
-    //   new TeleopIntakeUppies(s_IntakeUppies, rightJoystick)
-    // );
+    s_IntakeUppies.setDefaultCommand(
+      new TeleopIntakeUppies(s_IntakeUppies, rightJoystick)
+    );
 
     s_Angle.setDefaultCommand(
       new TeleopLauncherAngle(s_Angle, soloJoystick, leftJoystick)
     );
 
-    // s_Indexer.setDefaultCommand(
-    //   new TeleopIndexer(s_Indexer, soloJoystick)
-    // );
+    s_Indexer.setDefaultCommand(
+      new TeleopIndexer(s_Indexer, soloJoystick)
+    );
 
-    // s_IntakeAngle.setDefaultCommand(
-    //   new TeleopIntakeAngle(s_IntakeAngle, leftJoystick)
-    // );
-
-    
+    s_IntakeAngle.setDefaultCommand(
+      new TeleopIntakeAngle(s_IntakeAngle, leftJoystick)
+    );
 
   }
 

@@ -31,8 +31,8 @@ public final class Constants {
   public static final class ClimbingConstants{
     public static final VoltageOut kClimbingVoltageOut = new VoltageOut(0);
     // setting up the motors for the launcher to ID 24 and ID 23
-    public static final int leftGripper = 28;
-    public static final int rightGripper = 29;
+    public static final int leftElevator = 28;
+    public static final int rightElevator = 29;
 
 
   }

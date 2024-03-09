@@ -39,20 +39,20 @@ public class TeleopLauncherAngle extends Command {
     //DriverStation.reportError("Position " + subsystem.masterMotor.getRotorPosition().getValueAsDouble(), false);
  
 
-    if (soloStick.getRawButton(6) ) {
-      //up
-      subsystem.setMotors(3); 
-    } else if (soloStick.getRawButton(4)  ) {//&& subsystem.masterMotor.getRotorPosition().getValueAsDouble() >= lowLimit
+    if (soloStick.getRawButton(4) ) {
       //down
+      subsystem.setMotors(3); 
+    } else if (soloStick.getRawButton(6)  ) {//&& subsystem.masterMotor.getRotorPosition().getValueAsDouble() >= lowLimit
+      //up
       subsystem.setMotors(-3); 
-    } else if (soloStick.getRawButton(10) && subsystem.Encoder.getAbsolutePosition() <= 0.7892){
-        subsystem.setMotors(-4);
-    } else if (soloStick.getRawButton(12) && subsystem.Encoder.getAbsolutePosition() <= 0.915){
-        subsystem.setMotors(-4);
-    } else if (soloStick.getRawButton(8) && subsystem.Encoder.getAbsolutePosition() >= 0.7651){
+    } else if (soloStick.getRawButton(10)){// && subsystem.Encoder.getAbsolutePosition() <= 0.7892
         subsystem.setMotors(4);
-    } else if (leftStick.getRawButton(8) && subsystem.Encoder.getAbsolutePosition() <= 0.7908){
+    } else if (soloStick.getRawButton(12)){ // && subsystem.Encoder.getAbsolutePosition() <= 0.915
+        subsystem.setMotors(4);
+    } else if (soloStick.getRawButton(8)){// && subsystem.Encoder.getAbsolutePosition() >= 0.7651
         subsystem.setMotors(-4);
+    } else if (leftStick.getRawButton(8)){// && subsystem.Encoder.getAbsolutePosition() <= 0.7908
+        subsystem.setMotors(4);
     } else { // && subsystem.Encoder.getAbsolutePosition() <= 0.80
       subsystem.setMotors(0);
     }

@@ -64,11 +64,11 @@ public class RobotContainer {
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
   
-  private final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper));
-  private final AngleSubsystem s_Angle = new AngleSubsystem(new TalonFX(Constants.AngleConstants.LeftAngle), new TalonFX(Constants.AngleConstants.RightAngle),8);
+  private final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper), 6);
+  private final AngleSubsystem s_Angle = new AngleSubsystem(new TalonFX(Constants.AngleConstants.LeftAngle), new TalonFX(Constants.AngleConstants.RightAngle),7);
   private final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9);
   private final IntakeAngle s_IntakeAngle = new IntakeAngle(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle));
-  private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 7);
+  private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 8);
   private Command runAuto = drivetrain.getAutoPath("Test");
 
   public RobotContainer() {
@@ -91,8 +91,10 @@ public class RobotContainer {
     );
 
     s_IntakeAngle.setDefaultCommand(
-      new TeleopIntakeAngle(s_IntakeAngle, leftJoystick)
+      new TeleopIntakeAngle(s_IntakeAngle, rightJoystick)
     );
+
+    
 
   }
 

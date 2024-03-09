@@ -24,7 +24,10 @@ public class IntakeUppies extends SubsystemBase {
     public void setMotors(double speed) {
         // for setting the speed in the command file
         IndexMotor.setControl(LauncherConstants.kLauncherVoltageOut.withOutput(speed));
+        var temp = IndexMotor.getRotorPosition();
         SmartDashboard.putNumber("intakeEncoder", IntakeEncoder.getAbsolutePosition());  
+        SmartDashboard.putNumber("IntakeMotorTicks", temp.getValueAsDouble());
+ 
 
         
     }

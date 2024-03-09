@@ -13,7 +13,8 @@ public class TeleopLauncher extends Command {
   private final Launcher subsystem;
   private final Joystick soloStick;
   public boolean toggle = false;
-  private int speed = 0;
+  private double speed = 0;
+  private int speedwSensor = 0;
   public TeleopLauncher(Launcher subsystem, Joystick soloStick) {
     this.subsystem = subsystem;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
@@ -33,23 +34,25 @@ public class TeleopLauncher extends Command {
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger
 
     //if (soloStick.getRawButton(1) && toggle == false) {
-      if (soloStick.getRawButton(1)){
+      if (soloStick.getRawButton(3)){
       //toggle is so its only a button press, not a button hold
-      speed = -6;
+      speed = -1.5;
+      
       //toggle = true;
-    }else if (soloStick.getRawButton(3)) {
-      speed = 3;
+    }else if (soloStick.getRawButton(1) ) {
+      speed = 6;
+      
       //toggle = true;
     }else if (soloStick.getRawButton(5)) {
-      speed = -3;
+      speed = 3;
     }
     else if (soloStick.getRawButton(7)) {
-      speed = -5;
+      speed = 5;
     }
     else if(soloStick.getRawButton(2)){
       speed = 0;
+      speedwSensor = 0;
     }
-
     subsystem.setMotors(speed);
 
     /*

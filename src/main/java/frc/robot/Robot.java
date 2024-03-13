@@ -4,10 +4,18 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.autos.shoot;
+import frc.robot.commands.TeleopLauncher;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Launcher;
+import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -47,6 +55,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    // final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper), 6);
+    // final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9);
+
+    // shoot(s_Indexer, s_Launcher);
 
   }
 

@@ -13,13 +13,13 @@ import frc.robot.subsystems.AngleSubsystem;
 public class TeleopLauncherAngle extends Command {
   private final AngleSubsystem subsystem;
   private final Joystick soloStick;
-  private final Joystick leftStick;
+  private final Joystick soloSoloStick;
 
-  public TeleopLauncherAngle(AngleSubsystem subsystem, Joystick soloStick, Joystick leftStick) {
+  public TeleopLauncherAngle(AngleSubsystem subsystem, Joystick soloStick, Joystick soloSoloStick) {
     this.subsystem = subsystem;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
     this.soloStick = soloStick;
-    this.leftStick = leftStick;
+    this.soloSoloStick = soloSoloStick;
     addRequirements(subsystem);
   }
 
@@ -45,13 +45,17 @@ public class TeleopLauncherAngle extends Command {
     } else if (soloStick.getRawButton(6)  ) {//&& subsystem.masterMotor.getRotorPosition().getValueAsDouble() >= lowLimit
       //up
       subsystem.setMotors(-3); 
-    } else if (soloStick.getRawButton(10)){// && subsystem.Encoder.getAbsolutePosition() <= 0.7892
-        subsystem.setMotors(4);
-    } else if (soloStick.getRawButton(12)){ // && subsystem.Encoder.getAbsolutePosition() <= 0.915
-        subsystem.setMotors(4);
-    } else if (soloStick.getRawButton(8)){// && subsystem.Encoder.getAbsolutePosition() >= 0.7651
+      // line speaker setpoint
+    } else if (soloStick.getRawButton(10) && subsystem.Encoder.getAbsolutePosition() >= 0.2605) {
         subsystem.setMotors(-4);
-    } else if (leftStick.getRawButton(8)){// && subsystem.Encoder.getAbsolutePosition() <= 0.7908
+        //against speaker setpoint
+    } else if (soloStick.getRawButton(12) && subsystem.Encoder.getAbsolutePosition() >= 0.2283) {
+        subsystem.setMotors(-4);
+    } else if (soloSoloStick.getRawButton(5) && subsystem.Encoder.getAbsolutePosition() >= 0.1279) {
+      // upper limit
+        subsystem.setMotors(-4);
+    } else if (soloSoloStick.getRawButton(3) && subsystem.Encoder.getAbsolutePosition() <= 0.3804) {
+      // lower limit
         subsystem.setMotors(4);
     } else { // && subsystem.Encoder.getAbsolutePosition() <= 0.80
       subsystem.setMotors(0);

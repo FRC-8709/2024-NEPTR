@@ -64,6 +64,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static final class AutoConstants { 
+    
         
         public static double kMaxSpeedMetersPerSecond = 1;
         public static double kMaxAccelerationMetersPerSecondSquared = 1;

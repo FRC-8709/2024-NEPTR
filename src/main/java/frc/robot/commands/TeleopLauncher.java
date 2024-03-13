@@ -51,7 +51,6 @@ public class TeleopLauncher extends Command {
     }
     else if(soloStick.getRawButton(2)){
       speed = 0;
-      speedwSensor = 0;
     }
     subsystem.setMotors(speed);
 

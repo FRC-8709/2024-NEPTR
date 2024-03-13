@@ -29,32 +29,31 @@ public class TeleopClimbing extends Command {
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger
 
-      if (soloStick.getRawButton(1)){
-      leftSpeed = -6;
-      rightSpeed = -6;
-    }else if (soloStick.getRawButton(3)) {
-      rightSpeed = 3;
-      leftSpeed = 0;
-    }else if (soloStick.getRawButton(5)) {
-      rightSpeed = 0;
-      leftSpeed = 3;
-    }
-    else if(soloStick.getRawButton(2)){
-      rightSpeed = 0;
-      leftSpeed = 0;
-    }
+    if (soloStick.getRawButton(11)) {
+      subsystem.setLeftMotor(8);
+    } else if (soloStick.getRawButton(10)) {
+      subsystem.setRightMotor(4);
+    } else if (soloStick.getRawButton(12)){
+      subsystem.setRightMotor(-8);
+    } else if (soloStick.getRawButton(9)){
+      subsystem.setLeftMotor(-4);
+    }else if (soloStick.getRawButton(7)){
+      subsystem.setLeftMotor(-4);
+      subsystem.setRightMotor(4);
+    } else if (soloStick.getRawButton(8)){
+      subsystem.setLeftMotor(8);
+      subsystem.setRightMotor(-8);
+    }else {
+      subsystem.setRightMotor(0);
+      subsystem.setLeftMotor(0);
 
-    subsystem.setLeftMotor(leftSpeed);
-    subsystem.setRightMotor(rightSpeed);
-
+    }
   }
   
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    subsystem.setLeftMotor(0);
-    subsystem.setRightMotor(0);
 
   }
 

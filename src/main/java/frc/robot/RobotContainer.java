@@ -83,15 +83,14 @@ public class RobotContainer {
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
   
   //private Command runAuto = drivetrain.getAutoPath("Test");
-  private shoot launcherAuto = new shoot(s_Indexer, s_Launcher);
-  private Command testPrint = new frc.robot.autos.testPrint();
+  //private final shoot launcherAuto = new shoot();
+  private final Command testPrint = new frc.robot.autos.testPrint();
   //private Command runAuto = drivetrain.getAutoPath("Test");
 
   public RobotContainer() {
     
     NamedCommands.registerCommand("testPrint", testPrint);
-    NamedCommands.registerCommand("shoot", launcherAuto);
-    NamedCommands.registerCommand("testPrint", testPrint);
+    NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher));
     
 
     configureBindings();

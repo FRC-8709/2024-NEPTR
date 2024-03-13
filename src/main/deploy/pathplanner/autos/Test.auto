@@ -12,12 +12,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Path"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "shoot"

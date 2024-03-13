@@ -77,15 +77,14 @@ public class RobotContainer {
   private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 8);
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
   
-  private Command runAuto = drivetrain.getAutoPath("Test");
+  //private Command runAuto = drivetrain.getAutoPath("Test");
   private shoot launcherAuto = new shoot(s_Indexer, s_Launcher);
   private Command testPrint = new frc.robot.autos.testPrint();
 
   public RobotContainer() {
     System.out.println("Beginning of robotConatiner");
-
-
     
+
     configureBindings();
 
     
@@ -144,6 +143,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     NamedCommands.registerCommand("shoot", launcherAuto);
     NamedCommands.registerCommand("testPrint", testPrint);
+
+    Command runAuto = drivetrain.getAutoPath("Test");
 
     /* First put the drivetrain into auto run mode, then run the auto */
 

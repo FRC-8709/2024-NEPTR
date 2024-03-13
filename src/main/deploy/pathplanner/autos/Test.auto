@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5110352727827958,
-      "y": 5.5196408968316515
+      "x": 1.4525645005705963,
+      "y": 5.461170124619452
     },
     "rotation": 180.0
   },
@@ -15,6 +15,12 @@
           "type": "path",
           "data": {
             "pathName": "TestGroup2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
           }
         }
       ]

@@ -9,15 +9,17 @@ import javax.xml.namespace.QName;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
-
-
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -43,6 +45,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
+  private final SendableChooser<Command> autoChooser;
+  
+  
   private double MaxSpeed = 6; // 6 meters per second desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
@@ -80,14 +85,20 @@ public class RobotContainer {
   //private Command runAuto = drivetrain.getAutoPath("Test");
   private shoot launcherAuto = new shoot(s_Indexer, s_Launcher);
   private Command testPrint = new frc.robot.autos.testPrint();
+  //private Command runAuto = drivetrain.getAutoPath("Test");
 
   public RobotContainer() {
-    System.out.println("Beginning of robotConatiner");
+    
+    NamedCommands.registerCommand("testPrint", testPrint);
+    NamedCommands.registerCommand("shoot", launcherAuto);
+    NamedCommands.registerCommand("testPrint", testPrint);
     
 
     configureBindings();
 
     
+    autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+    SmartDashboard.putData("Auto Mode", autoChooser);
 
 
     s_Launcher.setDefaultCommand(
@@ -136,19 +147,19 @@ public class RobotContainer {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
     }
     drivetrain.registerTelemetry(logger::telemeterize);
+
+    SmartDashboard.putData("Example Auto", new PathPlannerAuto("Test"));
+
   }
 
   
 
   public Command getAutonomousCommand() {
-    NamedCommands.registerCommand("shoot", launcherAuto);
-    NamedCommands.registerCommand("testPrint", testPrint);
-
-    Command runAuto = drivetrain.getAutoPath("Test");
 
     /* First put the drivetrain into auto run mode, then run the auto */
 
-    return runAuto;
+    return autoChooser.getSelected();
+
   
   }
 }

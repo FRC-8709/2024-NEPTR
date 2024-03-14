@@ -15,10 +15,6 @@ public class shoot extends Command{
     }
 
     private boolean run = true;
-    @Override
-    public void initialize() {
-      System.out.println("ClimberCommand started!");
-    }
 
     @Override
     public void execute() {
@@ -30,6 +26,8 @@ public class shoot extends Command{
             Indexer.setMotors(8);
             
             Thread.sleep(1000);
+            Launcher.setMotors(0);
+            Indexer.setMotors(0);
 
         } catch (Exception e){
 
@@ -42,10 +40,10 @@ public class shoot extends Command{
     public void end(boolean interrupted) {
         Launcher.setMotors(0);
         Indexer.setMotors(0);
-        System.out.println("finsh");
     }
     @Override
     public boolean isFinished() {
       return false;
     }
+
 }

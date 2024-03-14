@@ -90,7 +90,7 @@ public class RobotContainer {
   public RobotContainer() {
     
     NamedCommands.registerCommand("testPrint", testPrint);
-    NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher));
+    NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
     
 
     configureBindings();
@@ -148,6 +148,8 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
 
     SmartDashboard.putData("Example Auto", new PathPlannerAuto("Test"));
+    SmartDashboard.putData("RightSide", new PathPlannerAuto("rightSideFullAuto"));
+
 
   }
 

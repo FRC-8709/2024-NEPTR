@@ -22,12 +22,12 @@ public class shoot extends Command{
         run = false;
 
         try {
-            Launcher.setMotors(6);
-            Indexer.setMotors(8);
+            Launcher.setMotors(10);
             
+            Thread.sleep(600);
+            Launcher.setMotors(10);
+            Indexer.setMotors(3);
             Thread.sleep(1000);
-            Launcher.setMotors(0);
-            Indexer.setMotors(0);
 
         } catch (Exception e){
 
@@ -38,12 +38,7 @@ public class shoot extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        Launcher.setMotors(0);
-        Indexer.setMotors(0);
-    }
-    @Override
-    public boolean isFinished() {
-      return false;
+
     }
 
 }

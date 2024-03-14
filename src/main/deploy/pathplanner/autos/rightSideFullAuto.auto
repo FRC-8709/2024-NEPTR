@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4525645005705963,
-      "y": 5.461170124619452
+      "x": 0.9614100139881189,
+      "y": 4.397002070357417
     },
-    "rotation": 180.0
+    "rotation": 122.00538320808344
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TestGroup2"
+            "pathName": "rightSide"
           }
         }
       ]

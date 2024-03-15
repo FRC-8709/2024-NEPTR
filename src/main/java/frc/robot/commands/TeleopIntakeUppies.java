@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IntakeAngle;
+import frc.robot.subsystems.IntakeFeed;
 import frc.robot.subsystems.IntakeUppies;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,11 +16,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class TeleopIntakeUppies extends Command {
   private final IntakeUppies subsystem;
   private final Joystick soloStick;
+  private final Joystick leftSoloStick;
+  private double speed = 0;
 
-  public TeleopIntakeUppies(IntakeUppies s_IntakeUppies, Joystick soloStick) {
+  public TeleopIntakeUppies(IntakeUppies s_IntakeUppies, Joystick soloStick, Joystick leftSoloStick) {
     this.subsystem = s_IntakeUppies;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
     this.soloStick = soloStick;
+    this.leftSoloStick = leftSoloStick;
     addRequirements(s_IntakeUppies);
   }
 
@@ -36,12 +39,16 @@ public class TeleopIntakeUppies extends Command {
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger//&& subsystem.IntakeEncoder.getAbsolutePosition() >= 0.238940
     if (soloStick.getRawButton(1)  ) {
-      subsystem.setMotors(2);
+      speed = 2;
     } else if (soloStick.getRawButton(2)) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
-      subsystem.setMotors(-2);
+      speed = -2;
+    } else if (leftSoloStick.getRawButton(7) && subsystem.intakeEncoder.getAbsolutePosition() >= 0.236) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
+      speed = -2;
     } else {
-      subsystem.setMotors(0);
+      speed = 0;
     }
+
+    subsystem.setMotors(speed);
   }
   
 

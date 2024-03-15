@@ -38,6 +38,7 @@ public class AngleSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("ArmEncoder", armEncoder.get());
 
     }
+    
     @Override
     public void periodic(){
        var temp = masterMotor.getRotorPosition();

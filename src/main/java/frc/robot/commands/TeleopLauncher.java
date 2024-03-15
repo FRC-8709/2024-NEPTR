@@ -46,9 +46,6 @@ public class TeleopLauncher extends Command {
     }else if (soloStick.getRawButton(5)) {
       speed = 3;
     }
-    else if (soloStick.getRawButton(7)) {
-      speed = 5;
-    }
     else if(soloStick.getRawButton(2)){
       speed = 0;
     }

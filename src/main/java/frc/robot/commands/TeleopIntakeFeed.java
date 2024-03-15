@@ -5,20 +5,24 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IntakeAngle;
+import frc.robot.subsystems.IntakeFeed;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class TeleopIntakeAngle extends Command {
-  private final IntakeAngle subsystem;
+public class TeleopIntakeFeed extends Command {
+  private final IntakeFeed subsystem;
   private final Joystick soloStick;
+  private final Joystick rightSoloStick;
+  public boolean toggle = false;
+  private double speed = 0;
 
-  public TeleopIntakeAngle(IntakeAngle s_IntakeAngle, Joystick soloStick) {
+  public TeleopIntakeFeed(IntakeFeed s_IntakeAngle, Joystick soloStick, Joystick rightSoloStick) {
     this.subsystem = s_IntakeAngle;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
     this.soloStick = soloStick;
+    this.rightSoloStick = rightSoloStick;
     addRequirements(s_IntakeAngle);
   }
 
@@ -32,14 +36,21 @@ public class TeleopIntakeAngle extends Command {
     //voltage goes up to 12, not linear
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger
-    if (soloStick.getRawButton(6)) {
-      subsystem.setMotors(4);
-    } else if (soloStick.getRawButton(4)) {
-      subsystem.setMotors(-4);
+    if (rightSoloStick.getRawButton(7)) {
+      speed = 3;
+      
+    } else if (rightSoloStick.getRawButton(8)) {
+      speed = -3;
+    }else if (soloStick.getRawButton(5) && subsystem.isTriggered == true) {
+      speed = -3; 
     } else {
-      subsystem.setMotors(0);
+      speed = 0;
     }
+
+    subsystem.setMotors(speed);
   }
+
+  
   
 
   // Called once the command ends or is interrupted.

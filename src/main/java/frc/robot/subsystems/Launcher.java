@@ -16,10 +16,10 @@ public class Launcher extends SubsystemBase {
     public final DigitalInput IndexerSensor;
     public boolean isTriggered = false;
 
-    public Launcher(TalonFX masterMotor, TalonFX followerMotor, int limitChannel) {
+    public Launcher(TalonFX masterMotor, TalonFX followerMotor, DigitalInput limitChannel) {
         this.masterMotor = masterMotor;
         this.followerMotor = followerMotor;
-        this.IndexerSensor = new DigitalInput(limitChannel);
+        this.IndexerSensor =limitChannel;
         masterMotor.setNeutralMode(NeutralModeValue.Brake);
         followerMotor.setNeutralMode(NeutralModeValue.Brake);
     }

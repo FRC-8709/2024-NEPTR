@@ -11,12 +11,12 @@ import frc.robot.Constants.LauncherConstants;
 
 public class IntakeUppies extends SubsystemBase {
     private final TalonFX IndexMotor;
-    public DutyCycleEncoder IntakeEncoder;
+    public DutyCycleEncoder intakeEncoder;
 
 
     public IntakeUppies(TalonFX IndexMotor, int channelA) {
         this.IndexMotor = IndexMotor;
-        this.IntakeEncoder = new DutyCycleEncoder(channelA);
+        this.intakeEncoder = new DutyCycleEncoder(channelA);
 
         IndexMotor.setNeutralMode(NeutralModeValue.Brake);
     }
@@ -25,10 +25,8 @@ public class IntakeUppies extends SubsystemBase {
         // for setting the speed in the command file
         IndexMotor.setControl(LauncherConstants.kLauncherVoltageOut.withOutput(speed));
         var temp = IndexMotor.getRotorPosition();
-        SmartDashboard.putNumber("intakeEncoder", IntakeEncoder.getAbsolutePosition());  
+        SmartDashboard.putNumber("intakeEncoder", intakeEncoder.getAbsolutePosition());  
         SmartDashboard.putNumber("IntakeMotorTicks", temp.getValueAsDouble());
- 
-
         
     }
 }

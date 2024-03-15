@@ -10,6 +10,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycle;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,6 +22,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class Sensors{
+    public static final DigitalInput frontSensor = new DigitalInput(6);
+  }
   public static final class LauncherConstants{
     public static final VoltageOut kLauncherVoltageOut = new VoltageOut(0);
     // setting up the motors for the launcher to ID 24 and ID 23

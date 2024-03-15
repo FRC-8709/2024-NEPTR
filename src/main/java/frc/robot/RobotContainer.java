@@ -30,14 +30,14 @@ import frc.robot.autos.shoot;
 import frc.robot.commands.TeleopClimbing;
 //import frc.robot.commands.TeleopAuto;
 import frc.robot.commands.TeleopIndexer;
-import frc.robot.commands.TeleopIntakeAngle;
+import frc.robot.commands.TeleopIntakeFeed;
 import frc.robot.commands.TeleopIntakeUppies;
 import frc.robot.commands.TeleopLauncher;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.AngleSubsystem;
 import frc.robot.subsystems.ClimbingSubsystem;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IntakeAngle;
+import frc.robot.subsystems.IntakeFeed;
 import frc.robot.subsystems.IntakeUppies;
 import frc.robot.subsystems.Launcher;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -75,11 +75,11 @@ public class RobotContainer {
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
   
-  private final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper), 6);
+  private final Launcher s_Launcher = new Launcher(new TalonFX(Constants.LauncherConstants.leftGripper), new TalonFX(Constants.LauncherConstants.rightGripper), Constants.Sensors.frontSensor);
   private final AngleSubsystem s_Angle = new AngleSubsystem(new TalonFX(Constants.AngleConstants.LeftAngle), new TalonFX(Constants.AngleConstants.RightAngle),7);
-  private final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9);
-  private final IntakeAngle s_IntakeAngle = new IntakeAngle(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle));
-  private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 8);
+  private final Indexer s_Indexer = new Indexer(new TalonFX(Constants.IndexerConstants.Indexer), 9, Constants.Sensors.frontSensor);
+  private final IntakeFeed s_IntakeFeed = new IntakeFeed(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle), Constants.Sensors.frontSensor);
+  private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 5);
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
   
   //private Command runAuto = drivetrain.getAutoPath("Test");
@@ -105,7 +105,7 @@ public class RobotContainer {
     );
     
     s_IntakeUppies.setDefaultCommand(
-      new TeleopIntakeUppies(s_IntakeUppies, rightJoystick)
+      new TeleopIntakeUppies(s_IntakeUppies, rightJoystick, soloJoystick)
     );
 
     s_Angle.setDefaultCommand(
@@ -113,11 +113,11 @@ public class RobotContainer {
     );
 
     s_Indexer.setDefaultCommand(
-      new TeleopIndexer(s_Indexer, soloJoystick)
+      new TeleopIndexer(s_Indexer, soloJoystick, rightJoystick)
     );
 
-    s_IntakeAngle.setDefaultCommand(
-      new TeleopIntakeAngle(s_IntakeAngle, rightJoystick)
+    s_IntakeFeed.setDefaultCommand(
+      new TeleopIntakeFeed(s_IntakeFeed, rightJoystick, soloJoystick)
     );
 
     s_Climbing.setDefaultCommand(

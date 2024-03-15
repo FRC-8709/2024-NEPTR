@@ -12,11 +12,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class TeleopIndexer extends Command {
   private final Indexer subsystem;
   private final Joystick soloStick;
+  private final Joystick codyRightStick;
 
-  public TeleopIndexer(Indexer subsystem, Joystick soloStick) {
+  public TeleopIndexer(Indexer subsystem, Joystick soloStick, Joystick codyRightStick) {
     this.subsystem = subsystem;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
     this.soloStick = soloStick;
+    this.codyRightStick = codyRightStick;
     addRequirements(subsystem);
   }
 
@@ -38,7 +40,9 @@ public class TeleopIndexer extends Command {
       subsystem.setMotors(-12); 
     } else if (soloStick.getRawButton(9)) {
       subsystem.setMotors(12); 
-    } else {
+    } else if (codyRightStick.getRawButton(5) && subsystem.frontIsTriggered == true) {
+      subsystem.setMotors(12); 
+    }  else {
       subsystem.setMotors(0);
     }
     

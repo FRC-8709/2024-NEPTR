@@ -26,6 +26,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.TeleopLauncherAngle;
+import frc.robot.autos.intakeDown;
+import frc.robot.autos.intakeUp;
 import frc.robot.autos.shoot;
 import frc.robot.commands.TeleopClimbing;
 //import frc.robot.commands.TeleopAuto;
@@ -91,7 +93,9 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("testPrint", testPrint);
     NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
-    
+    NamedCommands.registerCommand("intakeDown", new intakeDown(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
+    NamedCommands.registerCommand("intakeUp", new intakeUp(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
+
 
     configureBindings();
 

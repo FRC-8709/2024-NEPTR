@@ -17,7 +17,10 @@ public class TeleopIntakeUppies extends Command {
   private final IntakeUppies subsystem;
   private final Joystick soloStick;
   private final Joystick leftSoloStick;
+  public boolean toggle = false;
   private double speed = 0;
+  private double upperLimit = 0.2565;
+  private double lowerLimit = 0.5149;
 
   public TeleopIntakeUppies(IntakeUppies s_IntakeUppies, Joystick soloStick, Joystick leftSoloStick) {
     this.subsystem = s_IntakeUppies;
@@ -26,7 +29,6 @@ public class TeleopIntakeUppies extends Command {
     this.leftSoloStick = leftSoloStick;
     addRequirements(s_IntakeUppies);
   }
-
 
 // Called when the command is initially scheduled.
   @Override
@@ -40,13 +42,16 @@ public class TeleopIntakeUppies extends Command {
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger//&& subsystem.IntakeEncoder.getAbsolutePosition() >= 0.238940
     if (soloStick.getRawButton(1)  ) {
       speed = 2;
-    } else if (soloStick.getRawButton(2)) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
+    } 
+    
+    if (soloStick.getRawButton(2) && subsystem.intakeEncoder.getAbsolutePosition() >= upperLimit ) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
       speed = -2;
-    } else if (leftSoloStick.getRawButton(7) && subsystem.intakeEncoder.getAbsolutePosition() >= 0.236) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
+    } else if (leftSoloStick.getRawButton(7) && subsystem.intakeEncoder.getAbsolutePosition() >= upperLimit) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
       speed = -2;
     } else {
       speed = 0;
     }
+    
 
     subsystem.setMotors(speed);
   }

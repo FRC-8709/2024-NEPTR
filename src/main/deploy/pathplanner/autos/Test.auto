@@ -2,25 +2,44 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": -1.4525645005705963,
-      "y": -5.461170124619452
+      "x": 1.51,
+      "y": 5.5196408968316515
     },
-    "rotation": 0.0
+    "rotation": -178.84
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "shoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intakeDown"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "TestGroup2"
+            "pathName": "Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeUp"
           }
         }
       ]

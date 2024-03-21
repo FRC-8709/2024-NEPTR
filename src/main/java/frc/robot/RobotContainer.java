@@ -156,8 +156,9 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
 
     SmartDashboard.putData("Example Auto", new PathPlannerAuto("Test"));
-    SmartDashboard.putData("RightSide", new PathPlannerAuto("rightSideFullAuto"));
+    SmartDashboard.putData("LeftSide", new PathPlannerAuto("leftSideFullAuto"));
     SmartDashboard.putData("intakeDown", new PathPlannerAuto("Copy of Test"));
+    SmartDashboard.putData("rightSide", new PathPlannerAuto("rightSideFullAuto"));
 
 
   }

@@ -41,13 +41,11 @@ public class TeleopIntakeUppies extends Command {
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger//&& subsystem.IntakeEncoder.getAbsolutePosition() >= 0.238940
     if (soloStick.getRawButton(1)  ) {
-      speed = 2;
-    } 
-    
-    if (soloStick.getRawButton(2) && subsystem.intakeEncoder.getAbsolutePosition() >= upperLimit ) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
-      speed = -2;
+      speed = 2.5;
+    } else if (soloStick.getRawButton(2) && subsystem.intakeEncoder.getAbsolutePosition() >= upperLimit ) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
+      speed = -2.5;
     } else if (leftSoloStick.getRawButton(7) && subsystem.intakeEncoder.getAbsolutePosition() >= upperLimit) {//&& subsystem.IntakeEncoder.getAbsolutePosition() <= 0.785
-      speed = -2;
+      speed = -3.25;
     } else {
       speed = 0;
     }

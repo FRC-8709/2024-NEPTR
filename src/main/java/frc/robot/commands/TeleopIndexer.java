@@ -42,6 +42,8 @@ public class TeleopIndexer extends Command {
       subsystem.setMotors(12); 
     } else if (codyRightStick.getRawButton(5) && subsystem.frontIsTriggered == true) {
       subsystem.setMotors(12); 
+    } else if (soloStick.getRawButton(7) && subsystem.frontIsTriggered == true) {
+      subsystem.setMotors(12); 
     }  else {
       subsystem.setMotors(0);
     }

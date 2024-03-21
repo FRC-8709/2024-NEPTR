@@ -22,7 +22,7 @@ public class intakeDown extends Command{
         run = false;
 
         try {
-            double lowerLimit = 0.5;
+            double lowerLimit = 0.51;
 
             while(Uppies.intakeEncoder.getAbsolutePosition() < lowerLimit){
                 Uppies.setMotors(2);
@@ -32,17 +32,7 @@ public class intakeDown extends Command{
                 System.out.println("WORK PLS");
             }
             Uppies.setMotors(0);
-                
-            IntakeFeed.setMotors(3);
-
-            Thread.sleep(1000);
-
-            IntakeFeed.setMotors(3);
-
-            Thread.sleep(1000);
-            
-            IntakeFeed.setMotors(0);
-
+        
         } catch (Exception e){
 
         }

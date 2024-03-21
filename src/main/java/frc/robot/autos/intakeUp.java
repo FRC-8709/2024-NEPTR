@@ -22,11 +22,11 @@ public class intakeUp extends Command{
         run = false;
 
         try {
-            double upperLimit = 0.26;
+            double upperLimit = 0.247;
 
-            IntakeFeed.setMotors(3);
+            IntakeFeed.setMotors(-3);
 
-            Thread.sleep(500);
+            Thread.sleep(200);
 
             IntakeFeed.setMotors(0);
 
@@ -42,10 +42,10 @@ public class intakeUp extends Command{
 
             Thread.sleep(1000);
 
-            IntakeFeed.setMotors(3);
+            IntakeFeed.setMotors(-3);
 
-            Thread.sleep(1000);
-            
+            Thread.sleep(200);
+
             IntakeFeed.setMotors(0);
 
         } catch (Exception e){

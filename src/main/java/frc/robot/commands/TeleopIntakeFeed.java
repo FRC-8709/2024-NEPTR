@@ -37,7 +37,7 @@ public class TeleopIntakeFeed extends Command {
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger
     if (rightSoloStick.getRawButton(7)) {
-      speed = 3;
+      speed = -1.85;
       
     } else if (rightSoloStick.getRawButton(8)) {
       speed = -3;

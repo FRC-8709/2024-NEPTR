@@ -26,7 +26,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.TeleopLauncherAngle;
+import frc.robot.autos.ShootWithIntake;
 import frc.robot.autos.intakeDown;
+import frc.robot.autos.intakeFeeder;
 import frc.robot.autos.intakeUp;
 import frc.robot.autos.shoot;
 import frc.robot.commands.TeleopClimbing;
@@ -95,6 +97,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
     NamedCommands.registerCommand("intakeDown", new intakeDown(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
     NamedCommands.registerCommand("intakeUp", new intakeUp(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
+    NamedCommands.registerCommand("intakeFeeder", new intakeFeeder(s_IntakeFeed).withTimeout(2));
+    NamedCommands.registerCommand("ShootWithIntake", new ShootWithIntake(s_Indexer, s_Launcher, s_IntakeFeed).withTimeout(2));
 
 
     configureBindings();
@@ -153,6 +157,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Example Auto", new PathPlannerAuto("Test"));
     SmartDashboard.putData("RightSide", new PathPlannerAuto("rightSideFullAuto"));
+    SmartDashboard.putData("intakeDown", new PathPlannerAuto("Copy of Test"));
 
 
   }
@@ -164,7 +169,6 @@ public class RobotContainer {
     /* First put the drivetrain into auto run mode, then run the auto */
 
     return autoChooser.getSelected();
-
   
   }
 }

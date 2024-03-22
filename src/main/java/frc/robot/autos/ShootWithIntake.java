@@ -26,15 +26,15 @@ public class ShootWithIntake extends Command{
         run = false;
 
         try {
-            Launcher.setMotors(10);
+            Launcher.setMotors(6);
             Thread.sleep(600);
 
-            Launcher.setMotors(10);
+            Launcher.setMotors(6);
             IntakeFeed.setMotors(-2);
             Indexer.setMotors(12);
             
             Thread.sleep(600);
-            Launcher.setMotors(10);
+            Launcher.setMotors(6);
             Indexer.setMotors(12);
             IntakeFeed.setMotors(-2);
             Thread.sleep(1000);

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.9614100139881189,
-      "y": 4.397002070357417
+      "x": 0.76,
+      "y": 6.583808951093687
     },
-    "rotation": 122.00538320808344
+    "rotation": -121.50810167992185
   },
   "command": {
     "type": "sequential",
@@ -18,9 +18,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "intakeDown"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "leftSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeUp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "leftSide2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootWithIntake"
           }
         }
       ]

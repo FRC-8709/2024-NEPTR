@@ -36,7 +36,7 @@ public class TeleopLauncher extends Command {
     //if (soloStick.getRawButton(1) && toggle == false) {
       if (soloStick.getRawButton(3)){
       //toggle is so its only a button press, not a button hold
-      speed = -1.5;
+      speed = -2.5;
       
       //toggle = true;
     }else if (soloStick.getRawButton(1) ) {

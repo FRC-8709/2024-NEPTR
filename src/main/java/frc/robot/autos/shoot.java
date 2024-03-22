@@ -25,8 +25,8 @@ public class shoot extends Command{
         try {
             Launcher.setMotors(10);
             
-            Thread.sleep(600);
-            Launcher.setMotors(10);
+            Thread.sleep(700);
+            Launcher.setMotors(6);
             Indexer.setMotors(3);
             Thread.sleep(1000);
             Launcher.setMotors(0);

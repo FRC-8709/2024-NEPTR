@@ -57,6 +57,8 @@ public class TeleopLauncherAngle extends Command {
     } else if (soloSoloStick.getRawButton(3) && subsystem.Encoder.getAbsolutePosition() <= 0.3804) {
       // lower limit
         subsystem.setMotors(4);
+    }else if (soloSoloStick.getRawButton(12) && subsystem.Encoder.getAbsolutePosition() <= 0.2751) {
+        subsystem.setMotors(4);
     } else { // && subsystem.Encoder.getAbsolutePosition() <= 0.80
       subsystem.setMotors(0);
     }

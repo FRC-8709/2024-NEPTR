@@ -15,13 +15,15 @@ public class TeleopIntakeFeed extends Command {
   private final IntakeFeed subsystem;
   private final Joystick soloStick;
   private final Joystick rightSoloStick;
+  private final Joystick soloSoloStick;
   public boolean toggle = false;
   private double speed = 0;
 
-  public TeleopIntakeFeed(IntakeFeed s_IntakeAngle, Joystick soloStick, Joystick rightSoloStick) {
+  public TeleopIntakeFeed(IntakeFeed s_IntakeAngle, Joystick soloStick, Joystick rightSoloStick, Joystick soloSoloStick) {
     this.subsystem = s_IntakeAngle;
     //solo stick is the joystick on the far right; all functions not for driving go on this joystick
     this.soloStick = soloStick;
+    this.soloSoloStick =soloSoloStick;
     this.rightSoloStick = rightSoloStick;
     addRequirements(s_IntakeAngle);
   }
@@ -43,6 +45,8 @@ public class TeleopIntakeFeed extends Command {
       speed = -3;
     }else if (soloStick.getRawButton(5) && subsystem.isTriggered == true) {
       speed = -3; 
+    }else if (soloSoloStick.getRawButton(11) && subsystem.isTriggered == true) {
+      speed = 3; 
     } else {
       speed = 0;
     }

@@ -25,6 +25,8 @@ public class TeleopClimbing extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    var leftMotorDown = subsystem.climbLeft.getRotorPosition();
+
     //voltage goes up to 12, not linear
     // 6 volts != 50% speed
     //set button number 1 - 12 on joystick : all labled ex; button 1 is trigger

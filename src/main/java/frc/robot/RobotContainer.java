@@ -46,6 +46,7 @@ import frc.robot.subsystems.IntakeUppies;
 import frc.robot.subsystems.Launcher;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -86,14 +87,9 @@ public class RobotContainer {
   private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 5);
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
   
-  //private Command runAuto = drivetrain.getAutoPath("Test");
-  //private final shoot launcherAuto = new shoot();
-  private final Command testPrint = new frc.robot.autos.testPrint();
-  //private Command runAuto = drivetrain.getAutoPath("Test");
 
   public RobotContainer() {
     
-    NamedCommands.registerCommand("testPrint", testPrint);
     NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
     NamedCommands.registerCommand("intakeDown", new intakeDown(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
     NamedCommands.registerCommand("intakeUp", new intakeUp(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
@@ -125,7 +121,7 @@ public class RobotContainer {
     );
 
     s_IntakeFeed.setDefaultCommand(
-      new TeleopIntakeFeed(s_IntakeFeed, rightJoystick, soloJoystick)
+      new TeleopIntakeFeed(s_IntakeFeed, rightJoystick, soloJoystick, soloJoystick2ElectricBoogaloo)
     );
 
     s_Climbing.setDefaultCommand(
@@ -159,6 +155,11 @@ public class RobotContainer {
     SmartDashboard.putData("LeftSide", new PathPlannerAuto("leftSideFullAuto"));
     SmartDashboard.putData("intakeDown", new PathPlannerAuto("Copy of Test"));
     SmartDashboard.putData("rightSide", new PathPlannerAuto("rightSideFullAuto"));
+    double tx = LimelightHelpers.getTX("Get x");
+    double ty = LimelightHelpers.getTY("Get y");
+    SmartDashboard.putNumber("get x", tx);
+    SmartDashboard.putNumber("get y", ty);
+
 
 
   }

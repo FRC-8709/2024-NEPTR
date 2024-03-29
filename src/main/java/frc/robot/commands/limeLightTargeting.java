@@ -68,23 +68,23 @@ public class limeLightTargeting extends Command{
     return targetingForwardSpeed;
   }
 
-  private void drive(boolean FieldRelative){
+  public void drive(boolean FieldRelative){
     
     var rot =
         -m_rotLimiter.calculate(MathUtil.applyDeadband(rightJoystick.getX(), 0.02))
             * AutoConstants.kMaxAccelerationMetersPerSecondSquared;
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
-    var xSpeed =
-        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(leftJoystick.getY(), 0.02))
-            * Drivetrain.kMaxSpeed;
+    // var xSpeed =
+    //     -m_xspeedLimiter.calculate(MathUtil.applyDeadband(leftJoystick.getY(), 0.02))
+    //         * Drivetrain.kMaxSpeed;
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-    var ySpeed =
-        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(leftJoystick.getX(), 0.02))
-            * Drivetrain.kMaxSpeed;
+    // var ySpeed =
+    //     -m_yspeedLimiter.calculate(MathUtil.applyDeadband(leftJoystick.getX(), 0.02))
+    //         * Drivetrain.kMaxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in

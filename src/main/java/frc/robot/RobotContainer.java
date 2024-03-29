@@ -25,7 +25,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.TeleopLauncherAngle;
+import frc.robot.commands.swerveTurn;
 import frc.robot.autos.ShootWithIntake;
 import frc.robot.autos.intakeDown;
 import frc.robot.autos.intakeFeeder;
@@ -44,6 +46,7 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeFeed;
 import frc.robot.subsystems.IntakeUppies;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.swerveTurnSubsys;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 
@@ -64,12 +67,12 @@ public class RobotContainer {
   
 
   private final JoystickButton a = new JoystickButton(leftJoystick, 3);
-  private final JoystickButton b = new JoystickButton(leftJoystick, 4);
+  //private final JoystickButton b = new JoystickButton(leftJoystick, 4);
   private final JoystickButton trigger = new JoystickButton(leftJoystick, 1);
   private final JoystickButton resetButton = new JoystickButton(leftJoystick, 5);
 
   
-  private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
+  public final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
   
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.075).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
@@ -86,7 +89,7 @@ public class RobotContainer {
   private final IntakeFeed s_IntakeFeed = new IntakeFeed(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle), Constants.Sensors.frontSensor);
   private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 5);
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
-  
+  private final swerveTurnSubsys s_SwerveTurn = new swerveTurnSubsys();
 
   public RobotContainer() {
     
@@ -95,7 +98,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("intakeUp", new intakeUp(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
     NamedCommands.registerCommand("intakeFeeder", new intakeFeeder(s_IntakeFeed).withTimeout(2));
     NamedCommands.registerCommand("ShootWithIntake", new ShootWithIntake(s_Indexer, s_Launcher, s_IntakeFeed).withTimeout(2));
-
 
     configureBindings();
 
@@ -128,6 +130,10 @@ public class RobotContainer {
       new TeleopClimbing(s_Climbing, rightJoystick)
     );
 
+    s_SwerveTurn.setDefaultCommand(
+      new swerveTurn(s_SwerveTurn, leftJoystick)
+    );
+
   }
 
   private void configureBindings() {
@@ -139,8 +145,8 @@ public class RobotContainer {
         ));
 
     a.whileTrue(drivetrain.applyRequest(() -> brake));
-    b.whileTrue(drivetrain
-        .applyRequest(() -> point.withModuleDirection(new Rotation2d(-leftJoystick.getY(), -leftJoystick.getX()))));
+    // b.whileTrue(drivetrain
+    //     .applyRequest(() -> drive.withRotationalRate(-0.5 * MaxAngularRate)));
 
 
     // reset the field-centric heading on left bumper press

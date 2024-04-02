@@ -16,6 +16,8 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.TeleopLauncherAngle;
-import frc.robot.commands.swerveTurn;
+import frc.robot.commands.swerveTurnCommand;
 import frc.robot.autos.ShootWithIntake;
 import frc.robot.autos.intakeDown;
 import frc.robot.autos.intakeFeeder;
@@ -67,7 +69,7 @@ public class RobotContainer {
   
 
   private final JoystickButton a = new JoystickButton(leftJoystick, 3);
-  //private final JoystickButton b = new JoystickButton(leftJoystick, 4);
+  private final JoystickButton b = new JoystickButton(leftJoystick, 4);
   private final JoystickButton trigger = new JoystickButton(leftJoystick, 1);
   private final JoystickButton resetButton = new JoystickButton(leftJoystick, 5);
 
@@ -89,9 +91,22 @@ public class RobotContainer {
   private final IntakeFeed s_IntakeFeed = new IntakeFeed(new TalonFX(Constants.IntakeAngleConstants.IntakeAngle), Constants.Sensors.frontSensor);
   private final IntakeUppies s_IntakeUppies = new IntakeUppies(new TalonFX(Constants.IntakeUppiesConstants.IntakeUppies), 5);
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
-  private final swerveTurnSubsys s_SwerveTurn = new swerveTurnSubsys();
+  //private final swerveTurnSubsys sturnSub = new swerveTurnSubsys();
+
+  public AddressableLED leds = new AddressableLED(0);
+  public AddressableLEDBuffer buffer = new AddressableLEDBuffer(81);
+
 
   public RobotContainer() {
+
+    leds.setLength(buffer.getLength());
+
+    for (int i = 0; i < buffer.getLength(); i++) {
+      buffer.setRGB(i, 0, 0, 150);
+  }
+
+      leds.setData(buffer);
+      leds.start();
     
     NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
     NamedCommands.registerCommand("intakeDown", new intakeDown(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
@@ -130,9 +145,9 @@ public class RobotContainer {
       new TeleopClimbing(s_Climbing, rightJoystick)
     );
 
-    s_SwerveTurn.setDefaultCommand(
-      new swerveTurn(s_SwerveTurn, leftJoystick)
-    );
+    // s_SwerveTurn.setDefaultCommand(
+    //   new SwerveTurnCommand(s_SwerveTurn, leftJoystick)
+    // );
 
   }
 
@@ -145,6 +160,7 @@ public class RobotContainer {
         ));
 
     a.whileTrue(drivetrain.applyRequest(() -> brake));
+    b.whileTrue(new swerveTurnCommand(drivetrain, drive, brake));
     // b.whileTrue(drivetrain
     //     .applyRequest(() -> drive.withRotationalRate(-0.5 * MaxAngularRate)));
 

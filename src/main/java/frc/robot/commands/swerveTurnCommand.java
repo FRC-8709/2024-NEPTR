@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.commands.targeting.TurnDirection;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.AngleSubsystem;
+import frc.robot.subsystems.Launcher;
 
 public class swerveTurnCommand extends Command {
     
@@ -18,13 +21,21 @@ public class swerveTurnCommand extends Command {
     private double MaxAngularRate = 1.5 * Math.PI;
     private int TimeCheck = 999;
     private double LastX;
+    private Indexer Indexer;
+    private Launcher Launcher;
+    private AngleSubsystem LauncherAngle;
     // private double err;
     // private double deltaErr;
 
-    public swerveTurnCommand(CommandSwerveDrivetrain drivetrain, SwerveRequest.FieldCentric drive, SwerveRequest.SwerveDriveBrake brake) {
+    public swerveTurnCommand(CommandSwerveDrivetrain drivetrain, SwerveRequest.FieldCentric drive, 
+    SwerveRequest.SwerveDriveBrake brake, Indexer s_Indexer, Launcher s_Launcher, AngleSubsystem s_LauncherAngle) {
         this.drivetrain = drivetrain;
         this.drive = drive;
         this.brake = brake;
+        this.Indexer = s_Indexer;
+        this.LauncherAngle = s_LauncherAngle;
+        this.Launcher = s_Launcher;
+        
         addRequirements(drivetrain);
 
     }
@@ -82,8 +93,8 @@ public class swerveTurnCommand extends Command {
         // Drive is aligned. Start implementing subsystems.
         // Calculate distance first.
         final double apriltagInches = 57.13; // height from carpet to center of april tag. taken from field drawing
-        final double limelightHeight = 8.0; // inches
-        final double limelightDegrees = 20; // degrees
+        final double limelightHeight = 7.25; // inches
+        final double limelightDegrees = 5; // degrees
 
         double angleToGoalDegree = limelightDegrees + y;
         double angleToRadians = angleToGoalDegree * (Math.PI * 180.0);
@@ -94,7 +105,30 @@ public class swerveTurnCommand extends Command {
         // Use actualDistance as a reference for distance variables. Should be somewhat accurate, but repetable.
         // Set these values to the needed.
         double launchVoltage = 12;
-        double launchAngle = 30; // I'm sure this is way off lol, lets set this to a median number at some point
+        double indexerVoltage = 12;
+        //subsystem.setMotors(-12); 
+        //subsystem.Encoder.getAbsolutePosition() >= 0.2605
+        double launchAngle = 0.2605; // I'm sure this is way off lol, lets set this to a median number at some point
+        double launchAngleVoltage = 12;
+
+        if(distanceToSpeaker <= 125) {
+          launchVoltage = 6;
+          indexerVoltage = 6;
+          // FIX ARM
+          if(LauncherAngle.Encoder.getAbsolutePosition() >= 0.26){
+            launchAngleVoltage = -4;
+          } else if (LauncherAngle.Encoder.getAbsolutePosition() <= 0.26){
+            launchAngleVoltage = 4;
+          }
+        }
+
+        DriverStation.reportError("Distance" + distanceToSpeaker, false);
+
+        Indexer.setMotors(indexerVoltage); 
+        Launcher.setMotors(launchVoltage); 
+        LauncherAngle.setMotors(launchVoltage); 
+
+
 
         // Set these values to what is needed;
         // Then call the subsystems to take those values. Subsystems should auto adjust to these setpoints.

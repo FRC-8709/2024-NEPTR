@@ -160,7 +160,7 @@ public class RobotContainer {
         ));
 
     a.whileTrue(drivetrain.applyRequest(() -> brake));
-    b.whileTrue(new swerveTurnCommand(drivetrain, drive, brake));
+    b.whileTrue(new swerveTurnCommand(drivetrain, drive, brake, s_Indexer,s_Launcher, s_Angle));
     // b.whileTrue(drivetrain
     //     .applyRequest(() -> drive.withRotationalRate(-0.5 * MaxAngularRate)));
 

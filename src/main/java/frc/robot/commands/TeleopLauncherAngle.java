@@ -48,7 +48,7 @@ public class TeleopLauncherAngle extends Command {
       // line speaker setpoint
     } else if (soloStick.getRawButton(10) && subsystem.Encoder.getAbsolutePosition() >= 0.2605) {
         subsystem.setMotors(-4);
-        //against speaker setpoint
+      // against speaker setpoint
     } else if (soloStick.getRawButton(12) && subsystem.Encoder.getAbsolutePosition() >= 0.2283) {
         subsystem.setMotors(-4);
     } else if (soloSoloStick.getRawButton(5) && subsystem.Encoder.getAbsolutePosition() >= 0.1279) {

@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.units.Time;
@@ -114,19 +115,48 @@ public class swerveTurnCommand extends Command {
         if(distanceToSpeaker <= 125) {
           launchVoltage = 6;
           indexerVoltage = 6;
-          // FIX ARM
-          if(LauncherAngle.Encoder.getAbsolutePosition() >= 0.26){
-            launchAngleVoltage = -4;
-          } else if (LauncherAngle.Encoder.getAbsolutePosition() <= 0.26){
-            launchAngleVoltage = 4;
+
+          if( !(LauncherAngle.Encoder.getAbsolutePosition() < 0.28 && 
+          LauncherAngle.Encoder.getAbsolutePosition() > 0.22)){
+            DriverStation.reportError("Not Within Tolarance", false);
+            if(LauncherAngle.Encoder.getAbsolutePosition() >= 0.28){
+              launchAngleVoltage = -3;
+              DriverStation.reportError("GO UP", false);
+            }
+            else if(LauncherAngle.Encoder.getAbsolutePosition() <= 0.22){
+              launchAngleVoltage = 3;
+              DriverStation.reportError("GO DOWN", false);
+            }
           }
+          if (LauncherAngle.Encoder.getAbsolutePosition() < 0.28 && 
+          LauncherAngle.Encoder.getAbsolutePosition() > 0.22){
+            launchAngleVoltage = 0;
+            LauncherAngle.masterMotor.setNeutralMode(NeutralModeValue.Brake);
+            LauncherAngle.followerMotor.setNeutralMode(NeutralModeValue.Brake);
+
+          }
+
+
+          // if(LauncherAngle.Encoder.getAbsolutePosition() >= 0.26 && 
+          // !(LauncherAngle.Encoder.getAbsolutePosition() < 0.26 && 
+          // LauncherAngle.Encoder.getAbsolutePosition() > 0.22)){
+
+          //   launchAngleVoltage = -1;
+          // } 
+          // else if (LauncherAngle.Encoder.getAbsolutePosition() <= 0.22 && 
+          // !(LauncherAngle.Encoder.getAbsolutePosition() < 0.26 && 
+          // LauncherAngle.Encoder.getAbsolutePosition() > 0.22)){
+
+          //   launchAngleVoltage = 1;
+
+          // }
         }
 
         DriverStation.reportError("Distance" + distanceToSpeaker, false);
 
         Indexer.setMotors(indexerVoltage); 
         Launcher.setMotors(launchVoltage); 
-        LauncherAngle.setMotors(launchVoltage); 
+        LauncherAngle.setMotors(launchAngleVoltage); 
 
 
 

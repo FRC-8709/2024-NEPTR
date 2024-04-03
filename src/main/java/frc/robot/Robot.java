@@ -7,17 +7,18 @@ package frc.robot;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.autos.shoot;
 import frc.robot.commands.TeleopLauncher;
+import frc.robot.ledIndicator.LEDSystem;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Launcher;
 import frc.robot.RobotContainer;
-
-
 
 
 public class Robot extends TimedRobot {
@@ -25,16 +26,25 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public AddressableLED leds = new AddressableLED(0);
+  public AddressableLEDBuffer buffer = new AddressableLEDBuffer(81);
+
+  private LEDSystem ledSystem;
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
+    leds.setLength(buffer.getLength());
 
+    ledSystem = new LEDSystem(leds, buffer);
   }
 
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run(); 
+    CommandScheduler.getInstance().run();
+    
+    ledSystem.execute();
   }
 
   @Override

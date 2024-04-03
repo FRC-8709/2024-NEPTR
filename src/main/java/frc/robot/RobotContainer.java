@@ -42,6 +42,7 @@ import frc.robot.commands.TeleopIntakeFeed;
 import frc.robot.commands.TeleopIntakeUppies;
 import frc.robot.commands.TeleopLauncher;
 import frc.robot.generated.TunerConstants;
+import frc.robot.ledIndicator.LEDSystem;
 import frc.robot.subsystems.AngleSubsystem;
 import frc.robot.subsystems.ClimbingSubsystem;
 import frc.robot.subsystems.Indexer;
@@ -93,20 +94,10 @@ public class RobotContainer {
   private final ClimbingSubsystem s_Climbing = new ClimbingSubsystem(new TalonFX(Constants.ClimbingConstants.leftElevator), new TalonFX(Constants.ClimbingConstants.rightElevator));
   //private final swerveTurnSubsys sturnSub = new swerveTurnSubsys();
 
-  public AddressableLED leds = new AddressableLED(0);
-  public AddressableLEDBuffer buffer = new AddressableLEDBuffer(81);
+  
 
 
   public RobotContainer() {
-
-    leds.setLength(buffer.getLength());
-
-    for (int i = 0; i < buffer.getLength(); i++) {
-      buffer.setRGB(i, 0, 0, 150);
-  }
-
-      leds.setData(buffer);
-      leds.start();
     
     NamedCommands.registerCommand("shoot", new shoot(s_Indexer, s_Launcher).withTimeout(2));
     NamedCommands.registerCommand("intakeDown", new intakeDown(s_IntakeUppies, s_IntakeFeed).withTimeout(2));
